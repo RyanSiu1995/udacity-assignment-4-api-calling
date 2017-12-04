@@ -78,11 +78,6 @@ label.label-placeholder {
 	margin: 3px 0;
 }
 
-.location-item:hover {
-	background: #343434;
-	cursor: pointer;
-}
-
 /* Setting of Map Elements */
 .map-container #map {
 	height: 100%;

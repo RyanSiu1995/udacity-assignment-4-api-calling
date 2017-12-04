@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+* Initialize the data
+*/
 var data = [
 	{
 		id: 1,
