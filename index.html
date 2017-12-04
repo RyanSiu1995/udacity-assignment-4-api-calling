@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Neighborhood Map</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="bower_components/foundation/css/normalize.min.css">
+	<link rel="stylesheet" href="bower_components/foundation/css/foundation.min.css">
+	<link rel="stylesheet" href="bower_components/foundation-icon-fonts/foundation-icons.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/data.js"></script>
+</head>
+<body>
+	<!-- Top Bar of the Website -->
+	<div class="sticky">
+		<nav class="top-bar" data-topbar role="navigation">
+			<ul class="title-area">
+				<li class="name">
+					<h1 class="title-container">
+						<!-- Filter Side Bar Icon -->
+						<a onclick="toggleFilter()" class="title-icon">
+							<i class="fi-filter"></i>
+						</a>
+						<!-- Title of the Website -->
+						<a class="title-name">Neighborhood Map</a>
+					</h1>
+				</li>
+			</ul>
+		</nav>
+	</div>
+	<!-- Main Components -->	
+	<main class="main-container">
+		<!-- The Filter Component -->
+		<aside data-show="false" class="filter-container">
+			<!-- Filter Input -->
+			<div class="filter-input">
+				<label class="label-placeholder">Filter Words
+					<input type="text" name="filter" data-bind="value: keyWord,valueUpdate: 'keyup'">
+				</label>
+			</div>
+			<!-- The Items in the Map -->
+			<ul data-bind="foreach: activeLocation" class="no-bullet">
+				<li data-bind="text: name" class="location-item"></li>
+			</ul>
+		</aside>
+		<!-- The Map Component -->
+		<div class="map-container">
+			<div id="map"></div>
+		</div>
+	</main>
+
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="js/script.js"></script>
+	<script async defer 
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQTDQYsQ4KJ7c_8dg-SyErN6O6f-XsMVg&v=3&callback=initMap">
+	</script>
+	<script src="bower_components/underscore/underscore-min.js"></script>
+	<script src="bower_components/foundation/js/foundation.min.js"></script>
+	<script src="bower_components/knockout/dist/knockout.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>

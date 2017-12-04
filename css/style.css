@@ -1,0 +1,100 @@
+/* 
+	Two Break Points from Foundation: 
+	infinity to 64em - large size
+	64em to 39.9375em - medium size
+	39.9375em to 0em - small size
+*/
+
+.top-bar .name h1.title-container > a.title-icon, a.title-name {
+	/* Override the CSS from Foundation */
+	display: inline !important;
+}
+
+/* Style the title name into unselected title */
+.title-name:hover {
+	cursor: default;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+
+/* Setting the containers */
+.main-container {
+	height: calc(100% - 45px);
+	display: flex;
+}
+
+.filter-container {
+	height: 100%;
+	width: 20%;
+	padding: 10px;
+    color: white;
+    background: #545454;
+	display: none;
+}
+
+.filter-container[data-show=true] {
+	display: block;
+}
+
+.map-container {
+	height: 100%;
+	width: 100%;
+}
+
+@media screen and (max-width: 64em) {
+	.filter-container {
+		width: 50%;
+	}
+}
+
+@media screen and (max-width: 39.9375em) {
+	.main-container {
+		flex-wrap: wrap;
+	}
+
+	.filter-container {
+		height: fit-content;
+	}
+
+	.filter-container, .map-container {
+		width: 100%;
+	}
+}
+
+/* Setting of Filter Bar */
+label.label-placeholder {
+	color: #ccc;
+}
+
+.location-item {
+	padding: 5px 10px;
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	border: #ccc solid 1px;
+	margin: 3px 0;
+}
+
+.location-item:hover {
+	background: #343434;
+	cursor: pointer;
+}
+
+/* Setting of Map Elements */
+.map-container #map {
+	height: 100%;
+	width: 100%;
+}
+
+.error-log {
+	width: 80%;
+	text-align: center;
+	margin: 5px auto;
+	padding: 10px;
+	border: red solid;
+	border-radius: 20px;
+	font-weight: 700;
+}
