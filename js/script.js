@@ -67,12 +67,12 @@ function initMap() {
 			if (markerActive) {
 				markerActive.setAnimation(null);
 				infoWindow.close();
-				if (markerActive === this) {
+				if (_.isEqual(markerActive, this)) {
 					markerActive = null;
 					return;
 				}
 			}
-			markerActive = this;
+			markerActive = _.clone(this);
 			this.setAnimation(google.maps.Animation.BOUNCE);
 			infoWindow.close();
 			// TODO: Set the timeout for AJAX call
