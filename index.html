@@ -35,17 +35,17 @@
 			<!-- Filter Input -->
 			<div class="filter-input">
 				<label class="label-placeholder">Filter Words
-					<input type="text" name="filter" data-bind="value: keyWord,valueUpdate: 'keyup'">
+					<input type="text" name="filter" data-bind="value: keyWord, valueUpdate: 'keyup'">
 				</label>
 			</div>
 			<!-- The Items in the Map -->
 			<ul data-bind="foreach: activeLocation" class="no-bullet">
-				<li data-bind="text: name" class="location-item"></li>
+				<li data-bind="text: name, click: $root.markerClicker.bind(this)" class="location-item"></li>
 			</ul>
 		</aside>
 		<!-- The Map Component -->
 		<div class="map-container">
-			<div id="map"></div>
+			<div id="map" data-bind="html: mapInner"></div>
 		</div>
 	</main>
 

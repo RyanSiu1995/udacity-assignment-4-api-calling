@@ -36,16 +36,25 @@ var DataViewModel = function(data) {
 		markerRefresh(idList);
 		return returnArr
 	});
+	this.markerClicker = function(datum) {
+		// TODO: Try to trigger the click event
+		for (let i = 0; i < markers.length; i++) {
+			if (markers[i].properties['id'] === datum['id']) {
+				google.maps.event.trigger(markers[i], 'click');
+				return;
+			}
+		}
+	};
 	// TODO: Filter List Models
 	this.filterList = ko.observable(false);
 	this.toggleFilter = function() {
 		this.filterList(!this.filterList())
-	}
+	};
 	// TODO: Map Models
 	this.mapInner = ko.observable('');
 	this.onError = function() {
 		this.mapInner('<div class=\"error-log\">Error In Loading Google Map API</div>')
-	}
+	};
 }
 
 // TODO: bind the viewmodel
