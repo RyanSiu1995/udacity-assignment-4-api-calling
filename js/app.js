@@ -36,6 +36,16 @@ var DataViewModel = function(data) {
 		markerRefresh(idList);
 		return returnArr
 	});
+	// TODO: Filter List Models
+	this.filterList = ko.observable(false);
+	this.toggleFilter = function() {
+		this.filterList(!this.filterList())
+	}
+	// TODO: Map Models
+	this.mapInner = ko.observable('');
+	this.onError = function() {
+		this.mapInner('<div class=\"error-log\">Error In Loading Google Map API</div>')
+	}
 }
 
 // TODO: bind the viewmodel

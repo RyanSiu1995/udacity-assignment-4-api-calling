@@ -18,7 +18,7 @@
 				<li class="name">
 					<h1 class="title-container">
 						<!-- Filter Side Bar Icon -->
-						<a onclick="toggleFilter()" class="title-icon">
+						<a data-bind="click: toggleFilter" class="title-icon">
 							<i class="fi-filter"></i>
 						</a>
 						<!-- Title of the Website -->
@@ -31,7 +31,7 @@
 	<!-- Main Components -->	
 	<main class="main-container">
 		<!-- The Filter Component -->
-		<aside data-show="false" class="filter-container">
+		<aside data-bind="css: {'filter-show': filterList}" class="filter-container">
 			<!-- Filter Input -->
 			<div class="filter-input">
 				<label class="label-placeholder">Filter Words
@@ -51,12 +51,14 @@
 
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="js/script.js"></script>
-	<script async defer 
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQTDQYsQ4KJ7c_8dg-SyErN6O6f-XsMVg&v=3&callback=initMap">
-	</script>
 	<script src="bower_components/underscore/underscore-min.js"></script>
 	<script src="bower_components/foundation/js/foundation.min.js"></script>
 	<script src="bower_components/knockout/dist/knockout.js"></script>
 	<script src="js/app.js"></script>
+	<script async defer 
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQTDQYsQ4KJ7c_8dg-SyErN6O6f-XsMVg&v=3&callback=initMap"
+		data-bind="event: {error: onError}"
+	>
+	</script>
 </body>
 </html>

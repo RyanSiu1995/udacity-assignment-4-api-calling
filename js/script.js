@@ -12,13 +12,6 @@ var markerActive;
 var activeCenter = hongkong;
 var googleAPILoaded = false;
 
-// TODO: SetTimeout for loading Google Map API
-setTimeout(function() {
-	if (!googleAPILoaded) {
-		$('#map')[0].innerHTML = '<div class=\"error-log\">Cannot Load the Google Source</div>';
-	}
-}, 4000);
-
 /**
 * @description Initialize the Google Map
 */
@@ -29,15 +22,6 @@ function initMap() {
 		zoom: 11
 	});
 	infoWindow = new google.maps.InfoWindow();
-
-	// TODO: Add Listener to set viewport
-	google.maps.event.addListener(map, 'bounds_changed', function() {
-		map.setCenter(activeCenter);
-	});
-
-	google.maps.event.addListener(map, 'zoom_changed', function() {
-		map.setCenter(activeCenter);
-	});
 
 	infoWindow.addListener('closeclick', function() {
 		if (markerActive) {
@@ -75,53 +59,51 @@ function initMap() {
 			markerActive = this;
 			this.setAnimation(google.maps.Animation.BOUNCE);
 			infoWindow.close();
-			// TODO: Set the timeout for AJAX call
-			let wikipedia = false;
-			setTimeout(() => {
-				if (!wikipedia) {
-					infoWindow.setContent(
-						'<div><b>' + this.title + '</b></div>' + 
-						'<div>Cannot Get Connected With Wikipedia</div>'
-					);
-				}
-			}, 4000)
 			// TODO: Call Wikipedia API
 			$.ajax({
 				type: 'GET',
 				url: 'https://en.wikipedia.org/w/api.php?' + 
 					'format=json&action=query&prop=extracts&exintro=false&explaintext=&titles=' + 
 					encodeURIComponent(this.properties['queryString']),
-				dataType: 'jsonp',
-				success: res => {
-					wikipedia = true;
-					// TODO: Handle the error of no result
-					if (res.batchcomplete !== '' || !!res.query.pages["-1"]) {
-						infoWindow.setContent(
-							'<div><b>' + this.title + '</b></div>' + 
-							'<div>Cannot get the information of ' + this.title + '</div>'
-						);
-						infoWindow.open(map, marker);
-						return;
-					}
-					// TODO: Extract the data from response
-					let pages = res.query.pages;
-					for (let item in pages) {
-						if (pages.hasOwnProperty(item)) {
-							// TODO: Set the content up to infoWindow and break out the loop
-							infoWindow.setContent(
-								'<div><b>' + this.title + '</b></div>' + 
-								(pages[item].extract || 'No information')
-							);
-							break;
-						}
-					}
+				dataType: 'jsonp'
+			}).done(res => {
+				// TODO: Handle the error of no result
+				if (res.batchcomplete !== '' || !!res.query.pages["-1"]) {
+					infoWindow.setContent(
+						'<div><b>' + this.title + '</b></div>' + 
+						'<div>Cannot get the information of ' + this.title + '</div>'
+					);
 					infoWindow.open(map, marker);
 					return;
 				}
-			})
+				// TODO: Extract the data from response
+				let pages = res.query.pages;
+				for (let item in pages) {
+					if (pages.hasOwnProperty(item)) {
+						// TODO: Set the content up to infoWindow and break out the loop
+						infoWindow.setContent(
+							'<div><b>' + this.title + '</b></div>' + 
+							(pages[item].extract || 'No information')
+						);
+						break;
+					}
+				}
+				infoWindow.open(map, marker);
+				return;
+			}).fail((xhr, status, errorThrown) => {
+				infoWindow.setContent(
+					'<div><b>' + this.title + '</b></div>' + 
+					'<div>Cannot get the information of ' + this.title + '</div>'
+				);
+				infoWindow.open(map, marker);
+				return;	
+			});
 		});
+
 		markers.push(marker);
 	}
+	// TODO: In Case no error raise, unbind the map observable
+	ko.cleanNode($('#map')[0])
 }
 
 /**
@@ -134,13 +116,4 @@ function markerRefresh(activeList) {
 			activeList.indexOf(markers[i].properties['id']) != -1
 		);
 	}
-}
-
-/**
-* @description Toggle the Filter Bar
-*/
-function toggleFilter() {
-	$('.filter-container').attr('data-show',
-		!($('.filter-container').attr('data-show') === 'true')
-	);
 }

@@ -34,7 +34,7 @@
 	display: none;
 }
 
-.filter-container[data-show=true] {
+.filter-show {
 	display: block;
 }
 
@@ -76,6 +76,11 @@ label.label-placeholder {
 	-ms-user-select: none;
 	border: #ccc solid 1px;
 	margin: 3px 0;
+}
+
+.location-item:hover {
+	background: #343434;
+	cursor: pointer;
 }
 
 /* Setting of Map Elements */
