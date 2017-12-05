@@ -102,13 +102,11 @@ function initMap() {
 
 		markers.push(marker);
 	}
-	// TODO: In Case no error raise, unbind the map observable
-	ko.cleanNode($('#map')[0])
 }
 
 /**
 * @description Hide/Show the markers according to the filtering
-* @paras
+* @params {string[]} activeList - The id array for current active
 */
 function markerRefresh(activeList) {
 	for (let i = 0; i < markers.length; i++) {
@@ -116,4 +114,11 @@ function markerRefresh(activeList) {
 			activeList.indexOf(markers[i].properties['id']) != -1
 		);
 	}
+}
+
+/**
+* @description Handle the error message
+*/
+function errorLoading() {
+	$("#map")[0].innerHTML = '<div class=\"error-log\">Error In Loading Google Map API</div>';
 }

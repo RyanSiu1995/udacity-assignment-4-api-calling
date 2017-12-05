@@ -45,7 +45,7 @@
 		</aside>
 		<!-- The Map Component -->
 		<div class="map-container">
-			<div id="map" data-bind="html: mapInner"></div>
+			<div id="map"></div>
 		</div>
 	</main>
 
@@ -57,7 +57,7 @@
 	<script src="js/app.js"></script>
 	<script async defer 
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQTDQYsQ4KJ7c_8dg-SyErN6O6f-XsMVg&v=3&callback=initMap"
-		data-bind="event: {error: onError}"
+		onerror="errorLoading()"
 	>
 	</script>
 </body>

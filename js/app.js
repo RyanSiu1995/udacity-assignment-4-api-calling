@@ -50,11 +50,6 @@ var DataViewModel = function(data) {
 	this.toggleFilter = function() {
 		this.filterList(!this.filterList())
 	};
-	// TODO: Map Models
-	this.mapInner = ko.observable('');
-	this.onError = function() {
-		this.mapInner('<div class=\"error-log\">Error In Loading Google Map API</div>')
-	};
 }
 
 // TODO: bind the viewmodel
